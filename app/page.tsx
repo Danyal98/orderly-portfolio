@@ -1,4 +1,5 @@
 import Image from "next/image";
+import MotionEffects from "./motion-effects";
 import {
   ArrowRight,
   BarChart3,
@@ -80,6 +81,7 @@ function WhatsAppComposer({ text = "Message" }: { text?: string }) {
 export default function Home() {
   return (
     <main>
+      <MotionEffects />
       <nav className="nav shell" aria-label="Main navigation">
         <a className="brand" href="#top" aria-label="Orderly home">
           <span className="brand-mark" aria-hidden="true"><i /><i /></span>
@@ -99,29 +101,29 @@ export default function Home() {
 
       <section className="hero shell" id="top">
         <div className="hero-copy">
-          <div className="eyebrow"><Sparkles size={14} /> Built for modern hospitality</div>
-          <h1>Your restaurant,<br /><em>in rhythm.</em></h1>
-          <p className="hero-lead">
+          <div className="eyebrow hero-enter hero-enter-1"><Sparkles size={14} /> Built for modern hospitality</div>
+          <h1 className="hero-enter hero-enter-2">Your restaurant,<br /><em>in rhythm.</em></h1>
+          <p className="hero-lead hero-enter hero-enter-3">
             Turn WhatsApp conversations into confirmed restaurant orders—automatically. Orderly handles the chat while your team keeps serving.
           </p>
 
-          <div className="hero-actions">
+          <div className="hero-actions hero-enter hero-enter-4">
             <a className="button button-primary" href="#experience">
               Explore the product <ArrowRight size={18} />
             </a>
             <a className="text-link" href="#product"><span><Play size={13} fill="currentColor" /></span> See how it works</a>
           </div>
 
-          <div className="trust-row">
+          <div className="trust-row hero-enter hero-enter-5">
             <span><CircleCheck size={17} /> No app download</span>
             <span><CircleCheck size={17} /> Orders captured 24/7</span>
           </div>
         </div>
 
-        <div className="hero-visual" aria-label="Orderly dashboard preview">
+        <div className="hero-visual hero-enter hero-enter-3" aria-label="Orderly dashboard preview">
           <div className="orb orb-one" />
           <div className="orb orb-two" />
-          <div className="browser-frame">
+          <div className="browser-frame" data-tilt>
             <div className="browser-bar"><span /><span /><span /><b>orderly.app/dashboard</b></div>
             <Image
               src="/screenshots/dashboard.svg"
@@ -145,19 +147,23 @@ export default function Home() {
       </section>
 
       <section className="ticker" aria-label="Product capabilities">
-        <div>
-          <span>ORDERS</span><i />
-          <span>CUSTOMERS</span><i />
-          <span>WHATSAPP CHAT</span><i />
-          <span>INVENTORY</span><i />
-          <span>ANALYTICS</span><i />
-          <span>PROMOTIONS</span>
+        <div className="ticker-track">
+          {[0, 1].map((copy) => (
+            <div className="ticker-group" key={copy} aria-hidden={copy === 1}>
+              <span>ORDERS</span><i />
+              <span>CUSTOMERS</span><i />
+              <span>WHATSAPP CHAT</span><i />
+              <span>INVENTORY</span><i />
+              <span>ANALYTICS</span><i />
+              <span>PROMOTIONS</span><i />
+            </div>
+          ))}
         </div>
       </section>
 
       <section className="whatsapp-showcase" id="whatsapp">
         <div className="shell whatsapp-layout">
-          <div className="whatsapp-copy">
+          <div className="whatsapp-copy" data-reveal="left">
             <span className="kicker">Ordering, right inside WhatsApp</span>
             <h2>A chat becomes<br />an <em>order.</em></h2>
             <p>Customers browse, customize, confirm, and track their meal in the conversation they already know. No new account. No unfamiliar checkout.</p>
@@ -169,7 +175,7 @@ export default function Home() {
           </div>
 
           <div className="phone-gallery" aria-label="WhatsApp ordering conversation examples">
-            <figure className="phone-shot phone-shot-one">
+            <figure className="phone-shot phone-shot-one" data-reveal="up" data-delay="1">
               <div className="phone-shell">
                 <div className="phone-screen">
                   <WhatsAppHeader />
@@ -190,7 +196,7 @@ export default function Home() {
               <figcaption><span>01</span> Order naturally</figcaption>
             </figure>
 
-            <figure className="phone-shot phone-shot-two">
+            <figure className="phone-shot phone-shot-two" data-reveal="up" data-delay="2">
               <div className="phone-shell">
                 <div className="phone-screen">
                   <WhatsAppHeader />
@@ -212,7 +218,7 @@ export default function Home() {
               <figcaption><span>02</span> Confirm instantly</figcaption>
             </figure>
 
-            <figure className="phone-shot phone-shot-three">
+            <figure className="phone-shot phone-shot-three" data-reveal="up" data-delay="3">
               <div className="phone-shell">
                 <div className="phone-screen">
                   <WhatsAppHeader />
@@ -237,7 +243,7 @@ export default function Home() {
       </section>
 
       <section className="section shell" id="product">
-        <div className="section-heading">
+        <div className="section-heading" data-reveal="up">
           <div>
             <span className="kicker">One connected system</span>
             <h2>Less juggling.<br />More <em>momentum.</em></h2>
@@ -246,8 +252,8 @@ export default function Home() {
         </div>
 
         <div className="feature-grid">
-          {features.map(({ number, icon: Icon, title, text }) => (
-            <article className="feature-card" key={title}>
+          {features.map(({ number, icon: Icon, title, text }, index) => (
+            <article className="feature-card" key={title} data-reveal="up" data-delay={index + 1}>
               <div className="feature-top"><span>{number}</span><Icon size={25} /></div>
               <h3>{title}</h3>
               <p>{text}</p>
@@ -259,14 +265,14 @@ export default function Home() {
 
       <section className="showcase" id="experience">
         <div className="shell">
-          <div className="showcase-intro">
+          <div className="showcase-intro" data-reveal="up">
             <span className="kicker kicker-light">Designed around the shift</span>
             <h2>Everything important.<br /><em>Nothing in the way.</em></h2>
             <p>A calm command center for the beautiful chaos of restaurant operations.</p>
           </div>
 
           <div className="product-story">
-            <div className="story-copy">
+            <div className="story-copy" data-reveal="left">
               <span className="story-number">01 / 03</span>
               <div className="story-icon"><BarChart3 size={25} /></div>
               <h3>Know what&apos;s happening now.</h3>
@@ -277,13 +283,13 @@ export default function Home() {
                 <li><Check size={16} /> Customer feedback in context</li>
               </ul>
             </div>
-            <div className="shot-wrap shot-dashboard">
+            <div className="shot-wrap shot-dashboard" data-reveal="right">
               <Image src="/screenshots/dashboard.svg" alt="Orderly dashboard overview" width={1440} height={960} />
             </div>
           </div>
 
           <div className="product-story reverse">
-            <div className="story-copy">
+            <div className="story-copy" data-reveal="right">
               <span className="story-number">02 / 03</span>
               <div className="story-icon"><ShoppingBag size={25} /></div>
               <h3>Every order, right on cue.</h3>
@@ -294,13 +300,13 @@ export default function Home() {
                 <li><Check size={16} /> Performance trends built in</li>
               </ul>
             </div>
-            <div className="shot-wrap shot-orders">
+            <div className="shot-wrap shot-orders" data-reveal="left">
               <Image src="/screenshots/orders.svg" alt="Orderly order management workspace" width={1440} height={960} />
             </div>
           </div>
 
           <div className="product-story">
-            <div className="story-copy">
+            <div className="story-copy" data-reveal="left">
               <span className="story-number">03 / 03</span>
               <div className="story-icon"><MessageCircle size={25} /></div>
               <h3>Be there, even when you&apos;re busy.</h3>
@@ -311,7 +317,7 @@ export default function Home() {
                 <li><Check size={16} /> Human control, always</li>
               </ul>
             </div>
-            <div className="shot-wrap shot-chat">
+            <div className="shot-wrap shot-chat" data-reveal="right">
               <Image src="/screenshots/chat.svg" alt="Orderly WhatsApp customer chat inbox" width={1440} height={960} />
             </div>
           </div>
@@ -319,7 +325,7 @@ export default function Home() {
       </section>
 
       <section className="section shell outcomes" id="results">
-        <div className="outcomes-copy">
+        <div className="outcomes-copy" data-reveal="left">
           <span className="kicker">Why teams choose Orderly</span>
           <h2>Built to feel like<br /><em>one good shift.</em></h2>
           <p>Simple enough for the rush. Detailed enough for the decisions after it.</p>
@@ -327,20 +333,20 @@ export default function Home() {
         </div>
 
         <div className="outcome-grid">
-          <article><Zap /><h3>Faster action</h3><p>Put the next useful step within reach, wherever the day starts.</p></article>
-          <article><UsersRound /><h3>Shared context</h3><p>Give every teammate the same customer and order picture.</p></article>
-          <article><ShieldCheck /><h3>Human control</h3><p>Automation helps your team move; your team stays in charge.</p></article>
-          <article><Clock3 /><h3>Always ready</h3><p>Keep customer conversations moving beyond peak hours.</p></article>
+          <article data-reveal="up" data-delay="1"><Zap /><h3>Faster action</h3><p>Put the next useful step within reach, wherever the day starts.</p></article>
+          <article data-reveal="up" data-delay="2"><UsersRound /><h3>Shared context</h3><p>Give every teammate the same customer and order picture.</p></article>
+          <article data-reveal="up" data-delay="3"><ShieldCheck /><h3>Human control</h3><p>Automation helps your team move; your team stays in charge.</p></article>
+          <article data-reveal="up" data-delay="4"><Clock3 /><h3>Always ready</h3><p>Keep customer conversations moving beyond peak hours.</p></article>
         </div>
       </section>
 
       <section className="stats-band">
         <div className="shell stats-grid">
-          {stats.map(([value, label]) => <div key={label}><strong>{value}</strong><span>{label}</span></div>)}
+          {stats.map(([value, label], index) => <div key={label} data-reveal="scale" data-delay={index + 1}><strong>{value}</strong><span>{label}</span></div>)}
         </div>
       </section>
 
-      <section className="cta shell" id="contact">
+      <section className="cta shell" id="contact" data-reveal="up">
         <div className="cta-mark"><Bot size={34} /></div>
         <span className="kicker">Ready when you are</span>
         <h2>Give your team<br />a <em>better rhythm.</em></h2>
